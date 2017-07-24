@@ -18,7 +18,7 @@ const (
 
 func Sum128toString(data string) string {
 
-    var key string = "Not implemented yet"
+    var key string = "###################"
     var v []uint64
 
     h1, h2 := murmur3.Sum128([]byte(data))
