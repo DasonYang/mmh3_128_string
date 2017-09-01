@@ -36,17 +36,11 @@ func Sum128toString(data string) string {
     var numsignificantbytes int
     var ndigits int
     var idigit int = 0
-    var is_signed = pendbyte[0] >= 0x80
 
     {
         var p []byte = pendbyte
         var i int
-        var insignficant byte
-        if is_signed {
-            insignficant = 0xff
-        } else{
-            insignficant = 0x00
-        }
+        var insignficant = 0x00
 
         for i := 0; i < 16; i++  {
             if p[i] != insignficant {
@@ -54,10 +48,6 @@ func Sum128toString(data string) string {
             }
         }
         numsignificantbytes = 16 - i
-
-        if (is_signed && numsignificantbytes < 16) {
-            numsignificantbytes++
-        }
     }
     ndigits = (numsignificantbytes * 8 + 30 - 1) / 30
     v = make([]uint64, ndigits)
@@ -71,12 +61,6 @@ func Sum128toString(data string) string {
 
         for i = 0; i < numsignificantbytes; i++ {
             var thisbyte uint64 = uint64(p[i])
-
-            if (is_signed) {
-                thisbyte = (0xff ^ thisbyte) + carry
-                carry = thisbyte >> 8
-                thisbyte &= 0xff
-            }
 
             accum |= uint64(thisbyte << accumbits)
 
