@@ -40,7 +40,7 @@ func Sum128toString(data string) string {
     {
         var p []byte = pendbyte
         var i int
-        var insignficant = 0x00
+        var insignficant byte = 0x00
 
         for i := 0; i < 16; i++  {
             if p[i] != insignficant {
